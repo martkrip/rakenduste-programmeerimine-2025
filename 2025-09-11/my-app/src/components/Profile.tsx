@@ -12,7 +12,6 @@ function Profile() {
     </ul>
     E-meil: <input type='email' />
     Tekstiväli: <textarea></textarea>
-    <button>nupp </button>
     </div>
   )
 }
