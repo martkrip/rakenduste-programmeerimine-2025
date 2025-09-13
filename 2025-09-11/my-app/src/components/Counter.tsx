@@ -10,9 +10,30 @@ function Counter() {
   return (
     <>
       <h1>Vite + React + Raimo</h1>
+      {count}
       <div className="card">
-        <button onClick={() => increaseCounter(10)}>count is {count}</button>
-        {/* <button onClick={() => setCount(count => count + 1)}>count is {count}</button> sama kui ülemine*/}
+        <button onClick={() => increaseCounter(100)}> +100 </button>        
+        </div>
+      <div className="card">
+        <button onClick={() => increaseCounter(50)}> +50 </button>        
+        </div>
+      <div className="card">
+        <button onClick={() => increaseCounter(25)}> +25 </button>        
+        </div>
+      <div className="card">
+        <button onClick={() => increaseCounter(1)}> +1 </button>        
+        </div>
+      <div className="card">
+        <button onClick={() => increaseCounter(-1)}> -1 </button>        
+        </div>
+      <div className="card">
+        <button onClick={() => increaseCounter(-25)}> -25 </button>        
+        </div>
+      <div className="card">
+        <button onClick={() => increaseCounter(-50)}> -50 </button>        
+        </div>
+      <div className="card">
+        <button onClick={() => increaseCounter(-100)}> -100 </button>        
         </div>
     </>
     )
