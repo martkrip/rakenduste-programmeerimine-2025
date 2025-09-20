@@ -8,11 +8,13 @@ import Layout from './components/Layout'
 import Home from './components/Home'
 import About from './components/About'
 import Something from './components/Something'
+import MyAppBar from "./components/MyAppBar"
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+      <MyAppBar />
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -34,16 +36,16 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
       <p>
-      <Button variant="text">Text</Button>
+        <Button variant="text">Text</Button>
       </p>
       <Routes>
         <Route path="/" element={<Layout />}>
-        <Route path="home" element={<Home />} /> 
-        <Route path="about" element={<About />} />
-        <Route path="something" element={<Something />} />
+          <Route path="home" element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="something" element={<Something />} />
         </Route>
       </Routes>
-{/*       <nav>
+      {/*       <nav>
         <ul>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/home">Home</Link></li>
@@ -52,7 +54,7 @@ function App() {
         </ul>
       </nav> */}
     </>
-  )
+  );
 }
 
 export default App
