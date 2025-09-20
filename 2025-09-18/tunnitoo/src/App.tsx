@@ -3,7 +3,11 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Button from "@mui/material/Button"
-import { Link } from 'react-router'
+import { Routes, Route } from 'react-router'
+import Layout from './components/Layout'
+import Home from './components/Home'
+import About from './components/About'
+import Something from './components/Something'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -32,13 +36,21 @@ function App() {
       <p>
       <Button variant="text">Text</Button>
       </p>
-      <nav>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+        <Route path="home" element={<Home />} /> 
+        <Route path="about" element={<About />} />
+        <Route path="something" element={<Something />} />
+        </Route>
+      </Routes>
+{/*       <nav>
         <ul>
-          <li><Link to="About">About</Link></li>
-          <li><Link to="Home">Home</Link></li>
-          <li><Link to="Something">Something</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/home">Home</Link></li>
+          <li><Link to="/something">Something</Link></li>
+          <li><Link to="/layout">Layout</Link></li>
         </ul>
-      </nav>
+      </nav> */}
     </>
   )
 }
