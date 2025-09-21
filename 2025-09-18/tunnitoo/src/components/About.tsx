@@ -6,8 +6,21 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import useLocalStorage from "../useLocalStorage";
+
 
 function About() {
+
+  const [email, setEmail, clearEmail] = useLocalStorage<string>("email", "");
+  const [message, setMessage, clearMessage] = useLocalStorage<string>("message", "");
+
+  const handleSend = () => {
+    console.log("Email:", email);
+    console.log("Message:", message);
+    clearMessage();
+    clearEmail();
+  }
+
   return (
     <Box
       sx={{
@@ -34,12 +47,26 @@ function About() {
         <ListItem>Praegune mäng: Final Fantasy XIV</ListItem>
         <ListItem>Praegune anime: Bocchi The Rock!</ListItem>
         <ListItem>
-          e-meil: <TextField type="email"></TextField>
+          e-meil:{""}
+          <TextField
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder = "Sisesta enda e-meil"
+          ></TextField>
         </ListItem>
         <ListItem>
-          <Box sx={{ display: "flex", flexdirection: "row", gap: 2 }}>
-            <TextField multiline></TextField>
-            <Button variant="outlined">Send</Button>
+          <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+            <TextField
+              multiline
+              fullWidth
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Kirjuta sõnumit"
+            ></TextField>
+            <Button variant="outlined" onClick={handleSend}>
+              Send
+            </Button>
           </Box>
         </ListItem>
       </List>
