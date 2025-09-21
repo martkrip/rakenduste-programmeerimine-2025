@@ -29,7 +29,7 @@ export default function MyAppBar({ children }: {children: ReactNode}) {
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" /* noWrap component="div" */>
             Martin Toomas Kripsaar
           </Typography>
         </Toolbar>
@@ -50,7 +50,7 @@ export default function MyAppBar({ children }: {children: ReactNode}) {
       >
         <Toolbar />
         <Divider />
-        <List>
+        <List sx={{width: "100%"}}>
           {drawerItems.map((item, index) => (
             <ListItem key={item.text} disablePadding>
               <ListItemButton component={Link} to={item.path}>
@@ -67,7 +67,7 @@ export default function MyAppBar({ children }: {children: ReactNode}) {
       {/* Page Content */}
       <Box
         component="main"
-        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+        sx={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "flex-start", flexGrow: 1, bgcolor: "background.default", p: 3 }}
       >
         <Toolbar />
         {/* Your content goes here */}
