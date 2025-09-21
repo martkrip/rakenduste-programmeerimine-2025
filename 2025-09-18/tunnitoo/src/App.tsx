@@ -5,10 +5,13 @@ import Home from './components/Home'
 import About from './components/About'
 import Something from './components/Something'
 import MyAppBar from "./components/MyAppBar" 
+import { ThemeProvider } from '@emotion/react'
+import theme from './theme'
 function App() {
 
   return (
     <>
+      <ThemeProvider theme={theme}>
       <MyAppBar>
 {/*         <p>
           <Button variant="text">Text</Button>
@@ -31,6 +34,7 @@ function App() {
           <Route path="something" element={<Something />} />
         </Route>
       </Routes> */}
+      </ThemeProvider>
     </>
   );
 }
