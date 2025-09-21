@@ -9,8 +9,15 @@ import { ListItemText,ListItem, ListItemButton, ListItemIcon } from "@mui/materi
 import InboxIcon from "@mui/icons-material/MoveToInbox"
 import MailIcon from "@mui/icons-material/Mail";
 import type { ReactNode } from "react";
+import { Link } from "react-router";
 
 const drawerWidth = 240;
+
+const drawerItems = [
+  { text: "Home", path: "/home"},
+  { text: "About", path: "/about" },
+  { text: "Something", path: "/something"}
+]
 
 export default function MyAppBar({ children }: {children: ReactNode}) {
   return (
@@ -42,13 +49,13 @@ export default function MyAppBar({ children }: {children: ReactNode}) {
         anchor="left"
       >
         <Toolbar />
-        <List>{["Home", "About", "Something"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
+        <List>{drawerItems.map((item, index) => (
+          <ListItem key={item.text} disablePadding>
+            <ListItemButton component={Link} to={item.path}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>
         ))}</List>
