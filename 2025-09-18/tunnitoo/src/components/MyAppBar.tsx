@@ -5,7 +5,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
-import { ListItemText,ListItem, ListItemButton, ListItemIcon } from "@mui/material";
+import { ListItemText,ListItem, ListItemButton, ListItemIcon, Divider } from "@mui/material";
 import InboxIcon from "@mui/icons-material/MoveToInbox"
 import MailIcon from "@mui/icons-material/Mail";
 import type { ReactNode } from "react";
@@ -49,16 +49,19 @@ export default function MyAppBar({ children }: {children: ReactNode}) {
         anchor="left"
       >
         <Toolbar />
-        <List>{drawerItems.map((item, index) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton component={Link} to={item.path}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}</List>
+        <Divider />
+        <List>
+          {drawerItems.map((item, index) => (
+            <ListItem key={item.text} disablePadding>
+              <ListItemButton component={Link} to={item.path}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
       </Drawer>
 
       {/* Page Content */}
