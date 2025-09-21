@@ -5,20 +5,21 @@ import {
   ListItem,
   TextField,
   Typography,
-} from "@mui/material";
-import useLocalStorage from "../useLocalStorage";
-
+} from "@mui/material"
+import useLocalStorage from "../useLocalStorage"
 
 function About() {
-
-  const [email, setEmail, clearEmail] = useLocalStorage<string>("email", "");
-  const [message, setMessage, clearMessage] = useLocalStorage<string>("message", "");
+  const [email, setEmail, clearEmail] = useLocalStorage<string>("email", "")
+  const [message, setMessage, clearMessage] = useLocalStorage<string>(
+    "message",
+    "",
+  )
 
   const handleSend = () => {
-    console.log("Email:", email);
-    console.log("Message:", message);
-    clearMessage();
-    clearEmail();
+    console.log("Email:", email)
+    console.log("Message:", message)
+    clearMessage()
+    clearEmail()
   }
 
   return (
@@ -30,7 +31,11 @@ function About() {
         alignItems: "flex-start",
       }}
     >
-      <Typography variant="h4" noWrap component="div">
+      <Typography
+        variant="h4"
+        noWrap
+        component="div"
+      >
         Profile:
       </Typography>
       <List
@@ -51,8 +56,8 @@ function About() {
           <TextField
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder = "Sisesta enda e-meil"
+            onChange={e => setEmail(e.target.value)}
+            placeholder="Sisesta enda e-meil"
           ></TextField>
         </ListItem>
         <ListItem>
@@ -61,17 +66,20 @@ function About() {
               multiline
               fullWidth
               value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              onChange={e => setMessage(e.target.value)}
               placeholder="Kirjuta sõnumit"
             ></TextField>
-            <Button variant="outlined" onClick={handleSend}>
+            <Button
+              variant="outlined"
+              onClick={handleSend}
+            >
               Send
             </Button>
           </Box>
         </ListItem>
       </List>
     </Box>
-  );
+  )
 }
 
-export default About;
+export default About

@@ -14,7 +14,7 @@ function Something() {
       erat. Donec sapien dui, vulputate at velit vitae, suscipit tincidunt
       tellus. Vivamus ornare tellus eu est viverra, sed suscipit elit rhoncus.
     </div>
-  );
+  )
 }
 
 export default Something

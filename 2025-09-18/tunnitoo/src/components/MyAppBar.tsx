@@ -1,25 +1,31 @@
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import List from "@mui/material/List";
-import { ListItemText,ListItem, ListItemButton, ListItemIcon, Divider } from "@mui/material";
+import Box from "@mui/material/Box"
+import Drawer from "@mui/material/Drawer"
+import CssBaseline from "@mui/material/CssBaseline"
+import AppBar from "@mui/material/AppBar"
+import Toolbar from "@mui/material/Toolbar"
+import Typography from "@mui/material/Typography"
+import List from "@mui/material/List"
+import {
+  ListItemText,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  Divider,
+} from "@mui/material"
 import InboxIcon from "@mui/icons-material/MoveToInbox"
-import MailIcon from "@mui/icons-material/Mail";
-import type { ReactNode } from "react";
-import { Link } from "react-router";
+import MailIcon from "@mui/icons-material/Mail"
+import type { ReactNode } from "react"
+import { Link } from "react-router"
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const drawerItems = [
-  { text: "Home", path: "/home"},
+  { text: "Home", path: "/home" },
   { text: "About", path: "/about" },
-  { text: "Something", path: "/something"}
+  { text: "Something", path: "/something" },
 ]
 
-export default function MyAppBar({ children }: {children: ReactNode}) {
+export default function MyAppBar({ children }: { children: ReactNode }) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -50,10 +56,16 @@ export default function MyAppBar({ children }: {children: ReactNode}) {
       >
         <Toolbar />
         <Divider />
-        <List sx={{width: "100%"}}>
+        <List sx={{ width: "100%" }}>
           {drawerItems.map((item, index) => (
-            <ListItem key={item.text} disablePadding>
-              <ListItemButton component={Link} to={item.path}>
+            <ListItem
+              key={item.text}
+              disablePadding
+            >
+              <ListItemButton
+                component={Link}
+                to={item.path}
+              >
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
@@ -67,12 +79,20 @@ export default function MyAppBar({ children }: {children: ReactNode}) {
       {/* Page Content */}
       <Box
         component="main"
-        sx={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "flex-start", flexGrow: 1, bgcolor: "background.default", p: 3 }}
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          flexGrow: 1,
+          bgcolor: "background.default",
+          p: 3,
+        }}
       >
         <Toolbar />
         {/* Your content goes here */}
         {children}
       </Box>
     </Box>
-  );
+  )
 }

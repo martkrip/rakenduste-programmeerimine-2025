@@ -13,7 +13,7 @@ function Home() {
       gravida sed. Praesent facilisis maximus fringilla. Morbi ex ligula,
       fringilla eget ornare eu, volutpat ac nulla.
     </div>
-  );
+  )
 }
 
 export default Home
