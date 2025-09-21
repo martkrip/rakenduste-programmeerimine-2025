@@ -1,31 +1,68 @@
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import CssBaseline from "@mui/material/CssBaseline";
+import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import List from "@mui/material/List";
+import { ListItemText,ListItem, ListItemButton, ListItemIcon } from "@mui/material";
+import InboxIcon from "@mui/icons-material/MoveToInbox"
+import MailIcon from "@mui/icons-material/Mail";
+import type { ReactNode } from "react";
 
-export default function MyAppBar() {
+const drawerWidth = 240;
+
+export default function MyAppBar({ children }: {children: ReactNode}) {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      {/* Top AppBar */}
+      <AppBar
+        position="fixed"
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+      >
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+          <Typography variant="h6" noWrap component="div">
+            Martin Toomas Kripsaar
           </Typography>
-          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
+
+      {/* Left Drawer */}
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Toolbar />
+        <List>{["Home", "About", "Something"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}</List>
+      </Drawer>
+
+      {/* Page Content */}
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+      >
+        <Toolbar />
+        {/* Your content goes here */}
+        {children}
+      </Box>
     </Box>
   );
 }
