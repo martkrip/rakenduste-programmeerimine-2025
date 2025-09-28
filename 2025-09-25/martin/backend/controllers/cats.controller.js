@@ -22,7 +22,7 @@ exports.create = (req, res) => {
 };
 
 exports.read = (req, res) => {
-    res.send(cats);
+    res.send(cats.filter(cat => !cat.deleted));
 };
 
 exports.update = (req, res) => {
