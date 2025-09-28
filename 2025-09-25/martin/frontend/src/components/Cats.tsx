@@ -1,4 +1,11 @@
-import { Box, List, ListItem, Typography, Button } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItem,
+  Typography,
+  Button,
+  TextField,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SubmitCat from "./SubmitCat.tsx";
 
@@ -9,7 +16,6 @@ type Cat = {
   updatedAt: number | null;
   deleted: boolean;
 };
-
 
 const Cats = () => {
   const [cats, setCats] = useState<Cat[]>([]);
@@ -34,15 +40,15 @@ const Cats = () => {
   );
 };
 
-
-
 type CatsListProps = {
-    cats: Cat[];
-    fetchCats: () => void
+  cats: Cat[];
+  fetchCats: () => void;
 };
 
 const CatsList: React.FC<CatsListProps> = ({ cats, fetchCats }) => {
-  console.log({ cats })
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [newName, setNewName] = useState("");
+  console.log({ cats });
   const deleteHandler = async (id: string) => {
     try {
       await fetch("http://localhost:3000/cats", {
@@ -54,19 +60,72 @@ const CatsList: React.FC<CatsListProps> = ({ cats, fetchCats }) => {
       });
       fetchCats();
     } catch (error) {
-      console.error(error)
+      console.error(error);
+    }
+  };
+  const updateHandler = async (id: string) => {
+    try {
+      if (!newName) return;
+      await fetch("http://localhost:3000/cats", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, name: newName }),
+      });
+      setEditingId(null);
+      setNewName("");
+      fetchCats();
+    } catch (error) {
+      console.error(error);
     }
   };
   return (
     <List>
       {cats.map((cat) => (
-        <ListItem key={cat.id}>{JSON.stringify(cat)}
-          <Button
-            variant="contained"
-            color="error"
-            onClick={() => deleteHandler(cat.id)}
-            > Delete
-          </Button>
+        <ListItem key={cat.id}>
+          {editingId === cat.id ? (
+            <>
+              <TextField
+                size="small"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => updateHandler(cat.id)}
+              >
+                Save
+              </Button>
+              <Button variant="outlined" onClick={() => setEditingId(null)}>
+                Cancel
+              </Button>
+            </>
+          ) : (
+            <>
+              <Typography sx={{ flexGrow: 1 }}>{cat.name}</Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  setEditingId(cat.id);
+                  setNewName(cat.name);
+                }}
+              >
+                {" "}
+                Update
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => deleteHandler(cat.id)}
+              >
+                {" "}
+                Delete
+              </Button>
+            </>
+          )}
         </ListItem>
       ))}
     </List>
