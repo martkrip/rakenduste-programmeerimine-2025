@@ -14,8 +14,13 @@ const cats = [
     deleted: false,
   },
 ];
+const { validationResult } = require("express-validator");
 
 exports.create = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const { name: myName, school } = req.body;
     console.log({ myName });
     res.send({ message: "Cat created"}).sendStatus(201);
@@ -26,6 +31,10 @@ exports.read = (req, res) => {
 };
 
 exports.update = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const { id, name: newName } = req.body;
 
   const cat = cats.find(c => c.id === id && !c.deleted);
@@ -37,8 +46,11 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const { id } = req.body;
-  
   const cat = cats.find(c => c.id === id && !c.deleted);
 
   cat.deleted = true;
