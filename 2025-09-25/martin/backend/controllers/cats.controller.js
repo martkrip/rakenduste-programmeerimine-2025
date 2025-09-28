@@ -16,8 +16,7 @@ const cats = [
 ];
 
 exports.create = (req, res) => {
-    const { name: myName, school } = req.body;
-
+  const { name: myName, school } = req.body;
     console.log({ myName });
     res.send({ message: "Cat created"}).sendStatus(201);
 };
@@ -27,7 +26,14 @@ exports.read = (req, res) => {
 };
 
 exports.update = (req, res) => {
+  const { id, name: newName } = req.body;
 
+  const cat = cats.find(c => c.id === id && !c.deleted);
+
+  if (newName) cat.name = newName;
+  cat.updatedAt = Date.now();
+
+  res.send({ message: "Cat updated", cat}).sendStatus(200)
 };
 
 exports.delete = (req, res) => {
