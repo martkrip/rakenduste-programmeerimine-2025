@@ -1,4 +1,4 @@
-import { Box, List, ListItem, Typography } from "@mui/material";
+import { Box, List, ListItem, Typography, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SubmitCat from "./SubmitCat.tsx";
 
@@ -9,6 +9,7 @@ type Cat = {
   updatedAt: number | null;
   deleted: boolean;
 };
+
 
 const Cats = () => {
   const [cats, setCats] = useState<Cat[]>([]);
@@ -27,24 +28,46 @@ const Cats = () => {
   return (
     <Box>
       <Typography variant="h1">Cats</Typography>
-      <CatsList cats={cats} age={50} />
+      <CatsList cats={cats} fetchCats={fetchCats} />
       <SubmitCat fetchCats={fetchCats} />
     </Box>
   );
 };
 
+
+
 type CatsListProps = {
     cats: Cat[];
-    age: number;
+    fetchCats: () => void
 };
 
-const CatsList: React.FC<CatsListProps> = ({ cats, age }) => {
-
-    console.log({ cats, age })
+const CatsList: React.FC<CatsListProps> = ({ cats, fetchCats }) => {
+  console.log({ cats })
+  const deleteHandler = async (id: string) => {
+    try {
+      await fetch("http://localhost:3000/cats", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+      fetchCats();
+    } catch (error) {
+      console.error(error)
+    }
+  };
   return (
     <List>
       {cats.map((cat) => (
-        <ListItem key={cat.id}>{JSON.stringify(cat)}</ListItem>
+        <ListItem key={cat.id}>{JSON.stringify(cat)}
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => deleteHandler(cat.id)}
+            > Delete
+          </Button>
+        </ListItem>
       ))}
     </List>
   );
