@@ -37,6 +37,13 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    
+  const { id } = req.body;
+  
+  const cat = cats.find(c => c.id === id && !c.deleted);
+
+  cat.deleted = true;
+  cat.updatedAt = Date.now();
+
+  res.send({ message: "Cat deleted", cat });
 };
 
