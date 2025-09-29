@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
-import { validationResult } from "express-validator";
+const { v4: uuidv4 } = require("uuid")
+const { validationResult } = require("express-validator");
 
 const todos = [];
 

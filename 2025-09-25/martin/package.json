@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "frontend": "cd frontend && npm run dev",
-    "backend": "cd backend && npm run dev",
+    "backend": "cd backend && npx nodemon index.js",
+    "todobackend": "cd todobackend && npx nodemon index.js",
+    "todofrontend": "cd todofrontend && vite",
     "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
     "devtodo": "concurrently \"npm run todofrontend\" \"npm run todobackend\""
   },
@@ -16,6 +18,9 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^7.3.2",
-    "concurrently": "^9.2.1"
+    "@vitejs/plugin-react": "^5.0.4",
+    "concurrently": "^9.2.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   }
 }
