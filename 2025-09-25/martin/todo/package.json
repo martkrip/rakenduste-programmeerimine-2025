@@ -1,0 +1,17 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "todofrontend": "cd todofrontend && npm run dev",
+    "todobackend": "cd todobackend && npm run dev",
+    "dev": "concurrently \"npm run todofrontend\" \"npm run todobackend\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
