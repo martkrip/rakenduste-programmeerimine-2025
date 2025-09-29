@@ -26,6 +26,9 @@ exports.create = (req, res) => {
 exports.read = (req, res) => {
   res.status(200).json(todos.filter(todo => !todo.deleted));
 };
+exports.readAll = (req, res) => {
+  res.status(200).json({ message: "All tasks read", todos})
+}
 
 exports.update = (req, res) => {
   const errors = validationResult(req);
@@ -63,3 +66,25 @@ exports.delete = (req, res) => {
 
   res.status(200).json({ message: "Task deleted", todo });
 };
+
+exports.toggleDelete = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  const { id } = req.body;
+  const todo = todos.find((t) => t.id === id);
+
+  if (!todo) {
+    return res.status(404).json({ message: "Task not found" });
+  }
+  if (todo.deleted === true) {
+    todo.deleted = false
+    res.status(200).json({ message: "Task undeleted", todo });
+  } else {
+    todo.deleted = true
+    res.status(200).json({ message: "Task deleted", todo });
+  }
+  todo.updatedAt = Date.now();
+
+}
