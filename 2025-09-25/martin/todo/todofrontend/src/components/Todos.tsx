@@ -81,6 +81,20 @@ const TodosList: React.FC<TodosListProps> = ({ todos, fetchTodos }) => {
             console.error(error);
         }
     };
+    const completeHandler = async (id: string) => {
+        try {
+            await fetch("http://localhost:3000/todos", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ id, completed: true }),
+            });
+            fetchTodos();
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <List>
             {todos.map((todo) => (
@@ -105,7 +119,16 @@ const TodosList: React.FC<TodosListProps> = ({ todos, fetchTodos }) => {
                         </>
                     ) : (
                             <>
-                                <Typography sx={{ flexGrow: 1 }}>{todo.title}</Typography>
+                                <Typography sx={{ flexGrow: 1, textDecoration: todo.completed ? "line-through" : "none" }}>{todo.title}</Typography>
+                                {!todo.completed && (
+                                    <Button
+                                        variant="contained"
+                                        color="success"
+                                        onClick={() => completeHandler(todo.id)}
+                                    >
+                                        Complete
+                                    </Button>
+                                )}
                                 <Button
                                     variant="contained"
                                     color="primary"
