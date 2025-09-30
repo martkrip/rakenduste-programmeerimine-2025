@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express()
-const port = 3000;
+const port = process.env.PORT || 3000;
 const todoRoutes = require("./routes/todo.routes")
 const adminRoutes = require("./routes/admin.routes")
 const cors = require("cors")
+require("dotenv").config();
+process.env.JWT_SECRET
 
 app.use(cors())
 app.use(express.json());
