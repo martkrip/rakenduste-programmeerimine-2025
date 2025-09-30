@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SubmitTodo from "./SubmitTodo";
+import { Link as RouterLink } from "react-router-dom";
+import { Link as MUILink } from "@mui/material";
 
 type Todo = {
   id: string;
@@ -24,7 +26,7 @@ const AdminTodos = () => {
   const fetchTodos = async () => {
     const response = await fetch("http://localhost:3000/admin/todos");
     const data = await response.json();
-
+    console.log(data);
     setTodos(data);
   };
 
@@ -67,7 +69,7 @@ const TodosList: React.FC<TodosListProps> = ({ todos, fetchTodos }) => {
   const updateHandler = async (id: string) => {
     try {
       if (!newTitle) return;
-      await fetch("http://localhost:3000/todos", {
+      await fetch("http://localhost:3000/admin/todos", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -81,14 +83,14 @@ const TodosList: React.FC<TodosListProps> = ({ todos, fetchTodos }) => {
       console.error(error);
     }
   };
-  const completeHandler = async (id: string) => {
+  const completeHandler = async (id: string, currentCompleted: boolean) => {
     try {
-      await fetch("http://localhost:3000/todos", {
+      await fetch("http://localhost:3000/admin/todos", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id, completed: true }),
+        body: JSON.stringify({ id, completed: !currentCompleted }),
       });
       fetchTodos();
     } catch (error) {
@@ -127,15 +129,13 @@ const TodosList: React.FC<TodosListProps> = ({ todos, fetchTodos }) => {
               >
                 {todo.title}
               </Typography>
-              {!todo.completed && (
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={() => completeHandler(todo.id)}
+                  onClick={() => completeHandler(todo.id, todo.completed)}
                 >
-                  Complete
+                  {todo.completed ? "Uncomplete" : "Complete"}
                 </Button>
-              )}
               <Button
                 variant="contained"
                 color="primary"
@@ -159,6 +159,9 @@ const TodosList: React.FC<TodosListProps> = ({ todos, fetchTodos }) => {
           )}
         </ListItem>
       ))}
+      <MUILink component={RouterLink} to="/">
+        Go to Home Page
+      </MUILink>
     </List>
   );
 };

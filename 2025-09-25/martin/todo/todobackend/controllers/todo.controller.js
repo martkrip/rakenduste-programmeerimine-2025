@@ -27,7 +27,7 @@ exports.read = (req, res) => {
   res.status(200).json(todos.filter(todo => !todo.deleted));
 };
 exports.readAll = (req, res) => {
-  res.status(200).json({ message: "All tasks read", todos})
+  res.status(200).json(todos)
 }
 
 exports.update = (req, res) => {
@@ -88,3 +88,22 @@ exports.toggleDelete = (req, res) => {
   todo.updatedAt = Date.now();
 
 }
+
+exports.adminUpdate = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  const { id, title: newTitle, completed } = req.body;
+
+  const todo = todos.find((t) => t.id === id);
+  if (!todo) {
+    return res.status(404).json({ message: "Task not found" });
+  }
+
+  if (newTitle) todo.title = newTitle;
+  if (completed !== undefined) todo.completed = completed;
+  todo.updatedAt = Date.now();
+
+  res.status(200).json({ message: "Task updated", todo });
+};

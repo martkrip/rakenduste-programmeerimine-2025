@@ -9,10 +9,15 @@ const { body } = require("express-validator")
 
 router.use(todoRouteMiddleWare);
 
-router.get("/", todoGetRouteMiddleware, todoController.readAll);
+router.get("/todos", todoGetRouteMiddleware, todoController.readAll);
 
 router.put("/todos/toggle-delete",
     body("id").isUUID().withMessage("ID is required"),
     todoController.toggleDelete
+)
+router.put("/todos",
+    body("title").optional().isString(),
+    body("completed").optional().isBoolean().withMessage("Completed must be true or false"),
+    todoController.adminUpdate
 )
 module.exports = router

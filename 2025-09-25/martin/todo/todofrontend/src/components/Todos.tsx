@@ -8,6 +8,8 @@ import {
 } from "@mui/material"
 import React, { useEffect, useState } from "react";
 import SubmitTodo from "./SubmitTodo";
+import { Link as RouterLink } from "react-router";
+import { Link as MUILink } from "@mui/material"
 
 type Todo = {
     id: string;
@@ -152,7 +154,11 @@ const TodosList: React.FC<TodosListProps> = ({ todos, fetchTodos }) => {
                     )}
                     </ListItem>
             ))}
+            <MUILink component={RouterLink} to="/admin">
+                Go to Admin Panel
+            </MUILink>
         </List>
+        
     )
 }
 

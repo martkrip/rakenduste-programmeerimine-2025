@@ -9,7 +9,7 @@ app.use(cors())
 app.use(express.json());
 
 app.use("/todos", todoRoutes)
-app.use("/admin/todos", adminRoutes)
+app.use("/admin", adminRoutes)
 
 app.get('/', (req, res) => {
   res.send('Hello TODO')
