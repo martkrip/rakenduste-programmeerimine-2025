@@ -1,0 +1,21 @@
+"use client"
+
+import { createClient } from "@/lib/supabase/server"
+
+export default function DeleteNote({ noteId }: {noteId: number}) {
+    const supabase = createClient();
+
+    async function handleDelete() {
+        const {error} = await supabase.from("notes").delete().eq("id", noteId);
+        if (error) console.error("Error deleting note:", error);
+        else location.reload();
+    }
+
+    return (
+        <button
+            onClick={handleDelete}
+            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
+                Delete
+            </button>
+    )
+}
