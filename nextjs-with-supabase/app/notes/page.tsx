@@ -8,7 +8,7 @@ export default async function Page() {
   }
   const supabase = await createClient();
   const { data } = await supabase
-    .from<Note>("notes")
+    .from("notes")
     .select("*")
     .order("id", { ascending: true });
   const notes: Note[] = data || []
