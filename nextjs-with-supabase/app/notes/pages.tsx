@@ -2,11 +2,16 @@ import { createClient } from "@/lib/supabase/server";
 import CreateNote from "./CreateNote";
 import DeleteNote from "./DeleteNote";
 export default async function Page() {
+    type Note = {
+    id: number;
+    content: string
+  }
   const supabase = await createClient();
-  const { data: notes } = await supabase
-    .from("notes")
+  const { data } = await supabase
+    .from<Note>("notes")
     .select("*")
     .order("id", { ascending: true });
+  const notes: Note[] = data || []
   return (
     <div className="max-w-3xl mx-auto p-6">
       <h1 className="'text-2xl font-bold mb-4">Notes</h1>
