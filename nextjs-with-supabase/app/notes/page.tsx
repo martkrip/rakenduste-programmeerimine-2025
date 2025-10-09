@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import CreateNote from "./CreateNote";
 import DeleteNote from "./DeleteNote";
+import UpdateNote from "./UpdateNote";
 export default async function Page() {
     type Note = {
     id: number;
@@ -27,6 +28,7 @@ export default async function Page() {
             >
               <span className="text-gray-800">{note.content}</span>
               <DeleteNote noteId={note.id} />
+              <UpdateNote noteId={note.id} currentContent={note.content} />
             </div>
           ))
         ) : (
