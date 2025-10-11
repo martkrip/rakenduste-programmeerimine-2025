@@ -1,27 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { createTodo } from "./actions";
 
 export default function CreateTodo() {
-  const supabase = createClient();
   const [newTodo, setNewTodo] = useState("");
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!newTodo.trim()) return;
 
-    const { error } = await supabase.from("todos").insert({ task: newTodo });
-    if (error) console.error("Error adding task:", error);
-    else {
-      setNewTodo("");
-      location.reload();
-    }
+    await createTodo(new FormData(e.currentTarget))
+    setNewTodo("");
+    location.reload();
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex gap-2 mb-6">
       <input
+        name="task"
         type="text"
         value={newTodo}
         onChange={(e) => setNewTodo(e.target.value)}

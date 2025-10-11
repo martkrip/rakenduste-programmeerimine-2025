@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { updateTodo } from "./actions";
 export default function UpdateTodo({
     todoId,
     currentTask,
@@ -9,7 +9,6 @@ export default function UpdateTodo({
     todoId: number;
     currentTask: string
 }) {
-    const supabase = createClient()
     const [updatedTask, setUpdatedTask] = useState(currentTask);
     const [isEditing, setIsEditing] = useState(false);
 
@@ -17,10 +16,9 @@ export default function UpdateTodo({
         e.preventDefault();
         if (!updatedTask.trim()) return;
 
-        const { error } = await supabase.from("notes").update({ content: updatedTask }).eq("id", todoId)
-        
-        if (error) console.error("Error updating note:", error);
-        else location.reload();
+        await updateTodo(todoId, updatedTask)
+        setIsEditing(false)
+        location.reload();
     }
 
     if (!isEditing) {

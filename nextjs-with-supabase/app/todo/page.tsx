@@ -1,17 +1,16 @@
 import { createClient } from "@/lib/supabase/server";
 import CreateTodo from "./CreateTodo";
 import DeleteTodo from "./DeleteTodo";
+import UpdateTodo from "./UpdateTodo";
+
 export default async function Page() {
-    type Todo = {
-    id: number;
-    task: string
-  }
+
   const supabase = await createClient();
-  const { data } = await supabase
-    .from<Todo>("todos")
+  const { data:todos } = await supabase
+    .from("todos")
     .select("*")
-    .order("id", { ascending: true });
-  const todos: Todo[] = data || []
+  .order("id", { ascending: true });
+
   return (
     <div className="max-w-3xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">Todo List</h1>
@@ -26,6 +25,7 @@ export default async function Page() {
               className="flex justify-between items-center bg-white rounded-lg shadow p-4"
             >
               <span className="text-gray-800">{todo.task}</span>
+              <UpdateTodo todoId={todo.id} currentTask={todo.task} />
               <DeleteTodo todoId={todo.id} />
             </div>
           ))
@@ -36,3 +36,4 @@ export default async function Page() {
     </div>
   );
 }
+

@@ -1,14 +1,12 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
+import { deleteTodo } from "./actions";
 
 export default function DeleteTodo({ todoId }: { todoId: number }) {
-  const supabase = createClient();
 
   async function handleDelete() {
-    const { error } = await supabase.from("todos").delete().eq("id", todoId);
-    if (error) console.error("Error deleting task:", error);
-    else location.reload();
+    await deleteTodo(todoId);
+    location.reload();
   }
 
   return (
