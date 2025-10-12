@@ -1,11 +1,11 @@
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/server";
 import CreateTodo from "./CreateTodo";
 import DeleteTodo from "./DeleteTodo";
 import UpdateTodo from "./UpdateTodo";
 
 export default async function Page() {
 
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const { data:todos } = await supabase
     .from("todos")
     .select("*")

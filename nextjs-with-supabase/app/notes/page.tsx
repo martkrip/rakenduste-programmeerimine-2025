@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/server";
 import CreateNote from "./CreateNote";
 import DeleteNote from "./DeleteNote";
 import UpdateNote from "./UpdateNote";
@@ -7,7 +7,7 @@ export default async function Page() {
     id: number;
     content: string
   }
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const { data } = await supabase
     .from("notes")
     .select("*")
