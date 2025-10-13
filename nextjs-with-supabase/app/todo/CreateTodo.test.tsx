@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const createTodoMock = vi.fn();
 vi.mock("./actions", () => ({
-    createTodo: (...args: any[]) => createTodoMock(...args),
+  createTodo: (todoId: number) => createTodoMock(todoId),
 }));
 
 vi.stubGlobal("location", { reload: vi.fn() });
