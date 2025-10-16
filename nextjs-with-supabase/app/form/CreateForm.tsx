@@ -1,7 +1,7 @@
 "use client";
 import { createClient } from "@/lib/supabase/client";
 import { Button, Group, Textarea, TextInput } from "@mantine/core";
-import { DatePicker } from "@mantine/dates";
+import { DateTimePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
 
@@ -59,7 +59,7 @@ export default function CreateForm() {
         key={form.key("phone")}
         {...form.getInputProps("phone")}
       />
-      <DatePicker
+      <DateTimePicker
         value={dateTime?.toISOString() ?? null}
         label="Date and Time"
         placeholder="Select date and time"
