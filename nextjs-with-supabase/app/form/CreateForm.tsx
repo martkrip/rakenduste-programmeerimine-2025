@@ -23,14 +23,14 @@ export default function CreateForm() {
             (value.trim()  ? null : "Required"),
         
       email: (value) =>
-        /^\S+@\S+$/.test(value) ? null : "Invalid email",
+        (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
     
       const [dateTime, setDateTime] = useState<Date | null>(new Date());
     
   return (
-    <form onSubmit={form.onSubmit((values) => console.log(values))}>
+    <form onSubmit={form.onSubmit((values) => console.log({...values, dateTime}))}>
       <TextInput
         withAsterisk
         label="FirstName"
@@ -60,7 +60,7 @@ export default function CreateForm() {
         {...form.getInputProps("phone")}
       />
       <DateTimePicker
-        value={dateTime?.toISOString() ?? null}
+        value={dateTime}
         label="Date and Time"
         placeholder="Select date and time"
         onChange={(value: string | null) =>
