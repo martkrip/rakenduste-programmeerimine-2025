@@ -1,0 +1,22 @@
+"use client";
+
+import { createClient } from "@/lib/supabase/client";
+
+export default function DeleteCategory({ categoryId }: { categoryId: number }) {
+  const supabase = createClient();
+
+  async function handleDelete() {
+    const { error } = await supabase.from("categories").delete().eq("id", categoryId);
+    if (error) console.error("Error deleting category:", error);
+    else location.reload();
+  }
+
+  return (
+    <button
+      onClick={handleDelete}
+      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+    >
+      Delete
+    </button>
+  );
+}
