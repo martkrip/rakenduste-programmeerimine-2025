@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link"
+import Link from "next/link";
 import CreateCategory from "./CreateCategory";
 import DeleteCategory from "./DeleteCategory";
 import UpdateCategory from "./UpdateCategory";
@@ -16,7 +16,7 @@ type CategoryListProps = {
 export default function CategoriesList({ categories }: CategoryListProps) {
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <h1 className="'text-2xl font-bold mb-4">Categories</h1>
+      <h1 className="text-2xl font-bold mb-4">Categories</h1>
 
       <CreateCategory />
 
@@ -25,25 +25,39 @@ export default function CategoriesList({ categories }: CategoryListProps) {
           categories.map((category) => (
             <div
               key={category.id}
-              className="flex justify-between items-center bg-white rounded-lg shadow p-4"
+              className="bg-white rounded-lg shadow p-4 flex flex-wrap items-center justify-between gap-2"
             >
-              <Link
-                href={`/categories/${category.id}`}
-                className="text-gray-800 font-medium hover:underline"
-              >
-                {category.name}
-              </Link>
-              <DeleteCategory categoryId={category.id} />
-              <UpdateCategory
-                categoryId={category.id}
-                currentName={category.name}
-              />
-              <Link
-                href={`/categories/${category.id}/play`}
-                className="btn btn-blue"
-              >
-                Play Mode
-              </Link>
+              <span className="text-lg font-semibold">{category.name}</span>
+
+              <div className="flex flex-wrap gap-2">
+                {/* Button to go to the cards list for this category */}
+                <Link
+                  href={`/categories/${category.id}`}
+                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+                >
+                  View Cards
+                </Link>
+
+                <Link
+                  href={`/categories/${category.id}/play`}
+                  className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+                >
+                  Play Mode
+                </Link>
+
+                <Link
+                  href={`/stats/${category.id}`}
+                  className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition"
+                >
+                  Stats
+                </Link>
+
+                <UpdateCategory
+                  categoryId={category.id}
+                  currentName={category.name}
+                />
+                <DeleteCategory categoryId={category.id} />
+              </div>
             </div>
           ))
         ) : (
