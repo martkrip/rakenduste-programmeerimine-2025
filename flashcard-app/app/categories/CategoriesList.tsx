@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link"
 import CreateCategory from "./CreateCategory";
 import DeleteCategory from "./DeleteCategory";
 import UpdateCategory from "./UpdateCategory";
@@ -27,9 +27,17 @@ export default function CategoriesList({ categories }: CategoryListProps) {
               key={category.id}
               className="flex justify-between items-center bg-white rounded-lg shadow p-4"
             >
-              <span className="text-gray-800">{category.name}</span>
+              <Link
+                href={`/categories/${category.id}`}
+                className="text-gray-800 font-medium hover:underline"
+              >
+                {category.name}
+              </Link>
               <DeleteCategory categoryId={category.id} />
-              <UpdateCategory categoryId={category.id} currentName={category.name} />
+              <UpdateCategory
+                categoryId={category.id}
+                currentName={category.name}
+              />
             </div>
           ))
         ) : (

@@ -7,21 +7,25 @@ export default function CreateCard({ categoryId }: {categoryId: number}) {
   const supabase = createClient();
   const [newQuestion, setNewQuestion] = useState("");
   const [newAnswer, setNewAnswer] = useState("");
+  
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!newQuestion.trim()) return;
     if (!newAnswer.trim()) return;
-
-    const { error } = await supabase.from("cards").insert({ question: newQuestion, answer: newAnswer, category_id: categoryId });
-    if (error) console.error("Error adding card:", error);
+        const categoryIdNum = Number(categoryId);
+        if (isNaN(categoryIdNum)) {
+          console.error("Invalid categoryId:", categoryId);
+          return;
+        }
+    const { error } = await supabase.from("cards").insert({ question: newQuestion, answer: newAnswer, category_id: categoryIdNum });
+    if (error) console.error("Error adding card:", JSON.stringify(error, null, 2));
     else { 
       setNewQuestion("");
       setNewAnswer("")
       location.reload();
     }
   }
-
   return (
     <form onSubmit={handleSubmit} className="flex gap-2 mb-6">
       <input
