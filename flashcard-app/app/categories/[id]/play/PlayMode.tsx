@@ -4,6 +4,7 @@ import { useState } from "react";
 
 type Card = {
   id: number;
+  category_id: number;
   question: string;
   answer: string;
 };
@@ -54,16 +55,32 @@ export default function PlayMode({ cards }: { cards?: Card[] }) {
     );
   }
 
+  async function saveAttempt(
+    cardId: number,
+    categoryId: number,
+    isCorrect: boolean
+  ) {
+    await fetch("/api/stats", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cardId, categoryId, isCorrect }),
+    });
+  }
+
   const currentCard = cards[index];
 
-  function handleSubmit() {
+  async function handleSubmit() {
     const isCorrect =
       userAnswer.trim().toLowerCase() === currentCard.answer.toLowerCase();
 
     const newStats = isCorrect
       ? { ...stats, correct: stats.correct + 1 }
       : { ...stats, incorrect: stats.incorrect + 1 };
+    
     setStats(newStats);
+    
+    await saveAttempt(currentCard.id, currentCard.category_id!, isCorrect);
+
 
     setUserAnswer("");
     setResult(
@@ -124,6 +141,8 @@ export default function PlayMode({ cards }: { cards?: Card[] }) {
     setUserAnswer("");
     setUsedIndices([]);
   }
+
+  
 
   return (
     <div className="max-w-lg mx-auto p-6">
