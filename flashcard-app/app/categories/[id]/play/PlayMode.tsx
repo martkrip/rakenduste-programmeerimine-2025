@@ -25,25 +25,25 @@ export default function PlayMode({ cards }: { cards?: Card[] }) {
     const currentCard = cards[index];
 
     function handleSubmit() {
-        if (userAnswer.trim().toLowerCase() === currentCard.answer.toLowerCase()) {
-            setResult("Correct!");
-            setStats({ ...stats, correct: stats.correct + 1 });
-        } else {
-            setResult(`WRONG. Correct answer is ${currentCard.answer}`);
-            setStats({ ...stats, incorrect: stats.incorrect + 1 });
-        }
-        setUserAnswer("")
-    }
+        const isCorrect = userAnswer.trim().toLowerCase() === currentCard.answer.toLowerCase()
 
-    function nextCard() {
-        if (index < cards.length - 1) {
-            setIndex(index + 1);
-            setResult("");
-        } else {
-            alert(
-              `GAME OVER! Correct: ${stats.correct}, Incorrect: ${stats.incorrect}`
-            );
-        }
+        const newStats = isCorrect
+            ? { ...stats, correct: stats.correct + 1 }
+            : { ...stats, incorrect: stats.incorrect + 1 };
+        setStats(newStats);
+
+        setUserAnswer("");
+        setResult(isCorrect ? "Correct!" : `WRONG. Correct Answer is ${currentCard.answer} `);
+      if (index < cards.length - 1) {
+        setIndex(index + 1);
+      } else {
+        alert(
+          `GAME OVER! Correct: ${newStats.correct}, Incorrect: ${newStats.incorrect}`
+        );
+        setIndex(0);
+        setStats({ correct: 0, incorrect: 0 });
+        setResult("");
+      }
     }
 
     return (
@@ -66,9 +66,6 @@ export default function PlayMode({ cards }: { cards?: Card[] }) {
             <div className="flex gap-2 mt-4">
                 <button onClick={handleSubmit} className="bg-blue-500 text-white px-4 py-2 rounded">
                     Submit
-                </button>
-                <button onClick={nextCard} className="bg-gray-500 text-white px-4 py-2 rounded">
-                    Next
                 </button>
             </div>
             
