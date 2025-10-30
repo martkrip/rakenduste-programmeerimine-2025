@@ -33,7 +33,7 @@ export default function CategoriesList({ categories }: CategoryListProps) {
             </div>
           ))
         ) : (
-          <p className="text-gray-500 text-center">No notes yet.</p>
+          <p className="text-gray-500 text-center">No categories yet.</p>
         )}
       </div>
     </div>
