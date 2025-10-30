@@ -38,6 +38,12 @@ export default function CategoriesList({ categories }: CategoryListProps) {
                 categoryId={category.id}
                 currentName={category.name}
               />
+              <Link
+                href={`/categories/${category.id}/play`}
+                className="btn btn-blue"
+              >
+                Play Mode
+              </Link>
             </div>
           ))
         ) : (
